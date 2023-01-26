@@ -54,7 +54,7 @@ class LinearRegression:
             self.w = weights[:-1]
             self.b = weights[-1]
 
-    def predict(self, X: np.ndarray):
+    def predict(self, X: np.ndarray) -> np.ndarray:
         """
         Predict the output for the given input.
 
@@ -95,13 +95,18 @@ class GradientDescentLinearRegression(LinearRegression):
             None
         """
 
+        # Initialize weights
+        self.w = np.zeros(X.shape[1])
+        self.b = 0
+
         n = float(len(X))
         for i in range(epochs):
             # Predict y
+            # print(X.shape, self.w, self.b)
             y_predicted = X @ self.w + self.b
 
             # Calculating the gradients
-            gradient_w = -(2 / n) * sum(X * (y - y_predicted))
+            gradient_w = -(2 / n) * sum(X.T @ (y - y_predicted))
             gradient_b = -(2 / n) * sum(y - y_predicted)
 
             self.w -= gradient_w * lr
