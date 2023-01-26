@@ -5,8 +5,6 @@ class LinearRegression:
     """
     A class for Linear Regression.
 
-    ...
-
     Attributes
     ----------
     w: np.ndarray
@@ -42,7 +40,7 @@ class LinearRegression:
             X (np.ndarray): The input data.
             y (np.ndarray): The true data.
             lr (float): The learning rate.
-            epochs (int): The number of iterations to run the model
+            epochs (int): The number of iterations to run the model.
 
         Returns:
             np.ndarray: The predicted output.
@@ -63,7 +61,6 @@ class LinearRegression:
 
         Returns:
             np.ndarray: The predicted output.
-
         """
 
         return X @ self.w + self.b
@@ -72,7 +69,6 @@ class LinearRegression:
 class GradientDescentLinearRegression(LinearRegression):
     """
     A linear regression model that uses gradient descent to fit the model.
-
     """
 
     # Private method to calculate MSE
@@ -102,7 +98,6 @@ class GradientDescentLinearRegression(LinearRegression):
         n = float(len(X))
         for i in range(epochs):
             # Predict y
-            # print(X.shape, self.w, self.b)
             y_predicted = X @ self.w + self.b
 
             # Calculating the gradients
@@ -121,7 +116,6 @@ class GradientDescentLinearRegression(LinearRegression):
 
         Returns:
             np.ndarray: The predicted output.
-
         """
 
         return X @ self.w + self.b
