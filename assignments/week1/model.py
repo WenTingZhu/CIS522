@@ -3,24 +3,46 @@ import numpy as np
 
 class LinearRegression:
 
-    # w: np.ndarray
-    # b: float
+    w: np.ndarray
+    b: float
 
     def __init__(self):
         self.w = []
         self.b = 0
 
-    def fit(self, X, y):
+    def fit(self, X: np.ndarray, y: np.ndarray):
+        """
+        Fit the model with the data.
+
+        Arguments:
+            X (np.ndarray): The input data.
+            y (np.ndarray): The true data.
+            lr (float): The learning rate.
+            epochs (int): The number of iterations to run the model
+
+        Returns:
+            np.ndarray: The predicted output.
+
+        """
+
         X = np.hstack((X, np.ones((X.shape[0], 1))))
         if np.linalg.det(X.T @ X):
             weights = np.linalg.inv(X.T @ X) @ X.T @ y
             self.w = weights[:-1]
             self.b = weights[-1]
-            # print(self.w.shape, self.b.shape)
-            # print(self.w, self.b)
-            # print(X.shape)
 
-    def predict(self, X):
+    def predict(self, X: np.ndarray):
+        """
+        Predict the output for the given input.
+
+        Arguments:
+            X (np.ndarray): The input data.
+
+        Returns:
+            np.ndarray: The predicted output.
+
+        """
+
         return X @ self.w + self.b
 
 
@@ -36,6 +58,20 @@ class GradientDescentLinearRegression(LinearRegression):
     def fit(
         self, X: np.ndarray, y: np.ndarray, lr: float = 0.01, epochs: int = 1000
     ) -> None:
+        """
+        Fit the model with the data.
+
+        Arguments:
+            X (np.ndarray): The input data.
+            y (np.ndarray): The true data.
+            lr (float): The learning rate.
+            epochs (int): The number of iterations to run the model
+
+        Returns:
+            np.ndarray: The predicted output.
+
+        """
+
         n = float(len(X))
         for i in range(epochs):
             y_predicted = self.w @ X + self.b
@@ -61,4 +97,5 @@ class GradientDescentLinearRegression(LinearRegression):
             np.ndarray: The predicted output.
 
         """
-        return self.w @ X + self.b
+
+        return X @ self.w + self.b
