@@ -2,13 +2,15 @@
     "assignment_name": "Assignment 1",
     "contributors": [
         {
-            "name": "Jordan Matelsky",
-            "pennkey": "matelsky"
+            "name": "Haoer Shi",
+            "pennkey": "haoershi"
+        },
+        {
+            "name": "Wen Ting Zhu",
+            "pennkey": "wendyzhu"
         }
     ],
     "sources": [
-        "https://example.com",
-        "Conversations with TA (include TA's name)",
-        "LLM (include information about the LLM and how it was used)"
+        "https://www.geeksforgeeks.org/how-to-implement-a-gradient-descent-in-python-to-find-a-local-minimum/"
     ]
 }
