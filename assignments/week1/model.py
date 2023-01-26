@@ -2,15 +2,39 @@ import numpy as np
 
 
 class LinearRegression:
+    """
+    A class for Linear Regression.
+
+    ...
+
+    Attributes
+    ----------
+    w: np.ndarray
+        weights
+    b: float
+        bias
+
+    Methods
+    -------
+    fit(self, X: np.ndarray, y: np.ndarray):
+        Fit the model with the data.
+
+    predict(self, X: np.ndarray):
+        Predict the output for the given input.
+    """
 
     w: np.ndarray
     b: float
 
     def __init__(self):
+        """
+        Constructs all the necessary attributes for the LinearRegression object.
+        """
+
         self.w = []
         self.b = 0
 
-    def fit(self, X: np.ndarray, y: np.ndarray):
+    def fit(self, X: np.ndarray, y: np.ndarray) -> None:
         """
         Fit the model with the data.
 
@@ -22,7 +46,6 @@ class LinearRegression:
 
         Returns:
             np.ndarray: The predicted output.
-
         """
 
         X = np.hstack((X, np.ones((X.shape[0], 1))))
@@ -49,6 +72,7 @@ class LinearRegression:
 class GradientDescentLinearRegression(LinearRegression):
     """
     A linear regression model that uses gradient descent to fit the model.
+
     """
 
     # Private method to calculate MSE
@@ -68,23 +92,20 @@ class GradientDescentLinearRegression(LinearRegression):
             epochs (int): The number of iterations to run the model
 
         Returns:
-            np.ndarray: The predicted output.
-
+            None
         """
 
         n = float(len(X))
         for i in range(epochs):
-            y_predicted = self.w @ X + self.b
-            # loss = (y - y_hat) ** 2
-            # gradient_w = 2 * X * np.abs(y - y_hat)
-            # gradient_b = 2 * np.abs(y - y_hat)
+            # Predict y
+            y_predicted = X @ self.w + self.b
+
             # Calculating the gradients
             gradient_w = -(2 / n) * sum(X * (y - y_predicted))
             gradient_b = -(2 / n) * sum(y - y_predicted)
 
-            w -= gradient_w * lr
-            b -= gradient_b * lr
-        return (w, b)
+            self.w -= gradient_w * lr
+            self.b -= gradient_b * lr
 
     def predict(self, X: np.ndarray) -> np.ndarray:
         """
