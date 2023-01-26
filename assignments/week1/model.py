@@ -31,20 +31,20 @@ class GradientDescentLinearRegression(LinearRegression):
 
     # Private method to calculate MSE
     def _mean_squared_error(y_true, y_predicted):
-        return np.sum((y_true - y_predicted)**2) / len(y_true)
+        return np.sum((y_true - y_predicted) ** 2) / len(y_true)
 
     def fit(
         self, X: np.ndarray, y: np.ndarray, lr: float = 0.01, epochs: int = 1000
     ) -> None:
-        n = float(len(x))
+        n = float(len(X))
         for i in range(epochs):
             y_predicted = self.w @ X + self.b
             # loss = (y - y_hat) ** 2
             # gradient_w = 2 * X * np.abs(y - y_hat)
             # gradient_b = 2 * np.abs(y - y_hat)
             # Calculating the gradients
-            gradient_w = -(2/n) * sum(X * (y - y_predicted))
-            gradient_b = -(2/n) * sum(y - y_predicted)
+            gradient_w = -(2 / n) * sum(X * (y - y_predicted))
+            gradient_b = -(2 / n) * sum(y - y_predicted)
 
             w -= gradient_w * lr
             b -= gradient_b * lr
