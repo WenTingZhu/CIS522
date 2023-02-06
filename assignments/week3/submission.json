@@ -2,13 +2,15 @@
     "assignment_name": "MLP",
     "contributors": [
         {
-            "name": "Jordan Matelsky",
-            "pennkey": "matelsky"
+            "name": "Haoer Shi",
+            "pennkey": "haoershi"
+        },
+        {
+            "name": "Wen Ting Zhu",
+            "pennkey": "wendyzhu"
         }
     ],
     "sources": [
-        "https://example.com",
-        "Conversations with TA (include TA's name)",
-        "LLM (include information about the LLM and how it was used)"
+        "https://medium.com/tebs-lab/how-to-classify-mnist-digits-with-different-neural-network-architectures-39c75a0f03e3"
     ]
 }
