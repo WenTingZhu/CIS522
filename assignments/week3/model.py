@@ -4,6 +4,10 @@ from typing import Callable
 
 
 class MLP(torch.nn.Module):
+    """
+    Multi-Layer Perceptron model
+    """
+
     def __init__(
         self,
         input_size: int,
@@ -32,6 +36,7 @@ class MLP(torch.nn.Module):
 
         for i in range(hidden_count):
             self.layers += [nn.Linear(input_size, hidden_size)]
+            self.layers += [nn.Dropout(0.05)]
             input_size = hidden_size
 
         # Create final layer
