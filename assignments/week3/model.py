@@ -38,7 +38,7 @@ class MLP(torch.nn.Module):
             self.layers += [nn.Linear(input_size, hidden_size)]
             # self.layers += [nn.BatchNorm1d(hidden_size)]
             self.layers += [self.activation]
-            self.layers += [nn.Dropout(0.15)]
+            self.layers += [nn.Dropout(0.05)]
             input_size = hidden_size
 
         # Create final layer
