@@ -11,6 +11,7 @@
         }
     ],
     "sources": [
-        ""
+        "https://www.jeremyjordan.me/nn-learning-rate/",
+        "https://pytorch.org/docs/stable/_modules/torch/optim/lr_scheduler.html"
     ]
 }
