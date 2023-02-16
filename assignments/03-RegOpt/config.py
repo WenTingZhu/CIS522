@@ -2,21 +2,14 @@ from typing import Callable
 import torch
 import torch.optim
 import torch.nn as nn
-from torchvision.transforms import (
-    Compose,
-    Normalize,
-    ToTensor,
-    RandomHorizontalFlip,
-    RandomVerticalFlip,
-    RandomCrop,
-)
+from torchvision.transforms import Compose, Normalize, ToTensor
 
 
 class CONFIG:
     """_summary_"""
 
-    batch_size = 32
-    num_epochs = 15
+    batch_size = 64
+    num_epochs = 10
     initial_learning_rate = 0.0011
     initial_weight_decay = 0
 
@@ -46,8 +39,7 @@ class CONFIG:
         [
             ToTensor(),
             Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
-            RandomHorizontalFlip(),
-            RandomVerticalFlip(),
-            RandomCrop(32, padding=4),
+            # RandomHorizontalFlip(),
+            # RandomCrop(32, padding=4)
         ]
     )

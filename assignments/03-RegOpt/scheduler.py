@@ -5,6 +5,10 @@ import math
 
 
 class CustomLRScheduler(_LRScheduler):
+    """
+    A custom defined learning rate sheduler.
+    """
+    
     def __init__(
         self,
         optimizer: torch.optim.Optimizer,
