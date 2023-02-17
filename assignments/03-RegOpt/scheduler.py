@@ -91,14 +91,14 @@ class CustomLRScheduler(_LRScheduler):
             for base_lr in self.base_lrs
         ]
 
-    # def _get_closed_form_lr(self) -> List[float]:
-    #     """
-    #     Return closed form solution for learning rate
+    def _get_closed_form_lr(self) -> List[float]:
+        """
+        Return closed form solution for learning rate
 
-    #     Returns:
-    #         List[float]: learning rate
-    #     """
-    #     return [
-    #         base_lr * self.gamma ** (self.last_epoch // self.step_size)
-    #         for base_lr in self.base_lrs
-    #     ]
+        Returns:
+            List[float]: learning rate
+        """
+        return [
+            base_lr * self.gamma ** (self.last_epoch // self.step_size)
+            for base_lr in self.base_lrs
+        ]
