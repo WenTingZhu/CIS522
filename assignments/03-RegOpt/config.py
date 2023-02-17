@@ -27,9 +27,9 @@ class CONFIG:
         # 'step_size': 100,
         "gamma": 0.95,
         # "milestones": [3000, 3600, 4000, 4800, 5400, 6000],
-        "T_0": 10,
+        "T_0": 100,
         "eta_min": 0.00035,
-        "T_mult": 2,
+        "T_mult": 1,
     }  # gamma=0.9, milestones=[30,80]
 
     optimizer_factory: Callable[
