@@ -30,6 +30,9 @@ class CONFIG:
         "T_0": 32,
         "eta_min": 0.00035,
         "T_mult": 32,
+        "base_lr": 0.01,
+        "max_lr": 0.1,
+        "milestones": [(2**x) * 300 for x in range(30)],
     }  # gamma=0.9, milestones=[30,80]
 
     optimizer_factory: Callable[
