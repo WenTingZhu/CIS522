@@ -138,6 +138,7 @@ class CustomLRScheduler(_LRScheduler):
             return [param] * len(optimizer.param_groups)
 
     def scale_fn(self, x):
+        """Return scale function"""
         if self._scale_fn_custom is not None:
             return self._scale_fn_custom(x)
 
@@ -145,12 +146,15 @@ class CustomLRScheduler(_LRScheduler):
             return self._scale_fn_ref()(x)
 
     def _triangular_scale_fn(self, x):
+        """Return triangle scale function"""
         return 1.0
 
     def _triangular2_scale_fn(self, x):
+        """Return triangle scale function"""
         return 1 / (2.0 ** (x - 1))
 
     def _exp_range_scale_fn(self, x):
+        """Return exponential scale function"""
         return self.gamma ** (x)
 
     def get_lr(self) -> List[float]:
