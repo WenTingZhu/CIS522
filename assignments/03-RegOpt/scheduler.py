@@ -2,6 +2,7 @@ from typing import List
 from bisect import bisect_right
 from torch.optim.lr_scheduler import _LRScheduler
 import torch
+import math
 
 # import math
 import weakref
@@ -190,14 +191,14 @@ class CustomLRScheduler(_LRScheduler):
         #     return [group["lr"] for group in self.optimizer.param_groups]
         # return [group["lr"] * self.gamma for group in self.optimizer.param_groups]
         # Cosine
-        # self.T_i *= self.T_mult ** (self.last_epoch // self.T_i)
-        # return [
-        #     self.eta_min
-        #     + (base_lr * self.gamma ** (self.last_epoch // self.T_i) - self.eta_min)
-        #     * (1 + math.cos(math.pi * (self.last_epoch % self.T_i) / self.T_i))
-        #     / 2
-        #     for base_lr in self.base_lrs
-        # ]
+        self.T_i *= self.T_mult ** (self.last_epoch // self.T_i)
+        return [
+            self.eta_min
+            + (base_lr * self.gamma ** (self.last_epoch // self.T_i) - self.eta_min)
+            * (1 + math.cos(math.pi * (self.last_epoch % self.T_i) / self.T_i))
+            / 2
+            for base_lr in self.base_lrs
+        ]
         # CyclicLR
         # cycle = math.floor(1 + self.last_epoch / self.total_size)
         # x = 1. + self.last_epoch / self.total_size - cycle
@@ -229,21 +230,21 @@ class CustomLRScheduler(_LRScheduler):
 
         # return lrs
         # CyclicLinearLR
-        if self.last_epoch >= self.milestones[-1]:
-            return [self.eta_min for base_lr in self.base_lrs]
+        # if self.last_epoch >= self.milestones[-1]:
+        #     return [self.eta_min for base_lr in self.base_lrs]
 
-        idx = bisect_right(self.milestones, self.last_epoch)
+        # idx = bisect_right(self.milestones, self.last_epoch)
 
-        left_barrier = 0 if idx == 0 else self.milestones[idx - 1]
-        right_barrier = self.milestones[idx]
+        # left_barrier = 0 if idx == 0 else self.milestones[idx - 1]
+        # right_barrier = self.milestones[idx]
 
-        width = right_barrier - left_barrier
-        curr_pos = self.last_epoch - left_barrier
+        # width = right_barrier - left_barrier
+        # curr_pos = self.last_epoch - left_barrier
 
-        return [
-            self.eta_min + (base_lr - self.eta_min) * (1.0 - 1.0 * curr_pos / width)
-            for base_lr in self.base_lrs
-        ]
+        # return [
+        #     self.eta_min + (base_lr - self.eta_min) * (1.0 - 1.0 * curr_pos / width)
+        #     for base_lr in self.base_lrs
+        # ]
 
     # def _get_closed_form_lr(self) -> List[float]:
     #     """
