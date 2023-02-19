@@ -34,7 +34,7 @@ class CONFIG:
         "max_lr": 0.1,
         "milestones": [(2**x) * 300 for x in range(30)],
         "mode": "triangular2",
-        "step_size_up": 4000,
+        "step_size_up": 1000,
     }  # gamma=0.9, milestones=[30,80]
 
     optimizer_factory: Callable[
