@@ -17,7 +17,7 @@ class CONFIG:
     batch_size = 32
     num_epochs = 12
     initial_learning_rate = 0.0018
-    initial_weight_decay = 1e-5
+    initial_weight_decay = 0
 
     lrs_kwargs = {
         # You can pass arguments to the learning rate scheduler
@@ -30,7 +30,7 @@ class CONFIG:
         "T_0": 32,
         "eta_min": 0.00035,
         "T_mult": 32,
-        "base_lr": 0.01,
+        "base_lr": 0.001,
         "max_lr": 0.1,
         "milestones": [(2**x) * 300 for x in range(30)],
     }  # gamma=0.9, milestones=[30,80]
