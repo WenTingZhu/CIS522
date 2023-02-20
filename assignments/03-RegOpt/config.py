@@ -28,7 +28,7 @@ class CONFIG:
         "gamma": 0.95,
         # "milestones": [3000, 3600, 4000, 4800, 5400, 6000],
         "T_0": 32,
-        "eta_min": 0.00015,
+        "eta_min": 0.0001,
         "T_mult": 32,
         # "base_lr": 0.001,
         # "max_lr": 0.1,
