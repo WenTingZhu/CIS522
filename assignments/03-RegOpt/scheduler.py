@@ -1,5 +1,4 @@
 from typing import List
-from bisect import bisect_right
 from torch.optim.lr_scheduler import _LRScheduler
 import torch
 import math
@@ -62,102 +61,99 @@ class CustomLRScheduler(_LRScheduler):
         if eta_min is not None:
             self.eta_min = eta_min
 
-        self.eta_min = eta_min
-        self.milestones = milestones
+        # self.optimizer = optimizer
 
-        self.optimizer = optimizer
+        # base_lrs = self._format_param("base_lr", optimizer, base_lr)
+        # if last_epoch == -1:
+        #     for lr, group in zip(base_lrs, optimizer.param_groups):
+        #         group["lr"] = lr
 
-        base_lrs = self._format_param("base_lr", optimizer, base_lr)
-        if last_epoch == -1:
-            for lr, group in zip(base_lrs, optimizer.param_groups):
-                group["lr"] = lr
+        # self.max_lrs = self._format_param("max_lr", optimizer, max_lr)
 
-        self.max_lrs = self._format_param("max_lr", optimizer, max_lr)
+        # step_size_up = float(step_size_up)
+        # step_size_down = (
+        #     float(step_size_down) if step_size_down is not None else step_size_up
+        # )
+        # self.total_size = step_size_up + step_size_down
+        # self.step_ratio = step_size_up / self.total_size
 
-        step_size_up = float(step_size_up)
-        step_size_down = (
-            float(step_size_down) if step_size_down is not None else step_size_up
-        )
-        self.total_size = step_size_up + step_size_down
-        self.step_ratio = step_size_up / self.total_size
+        # if mode not in ["triangular", "triangular2", "exp_range"] and scale_fn is None:
+        #     raise ValueError("mode is invalid and scale_fn is None")
 
-        if mode not in ["triangular", "triangular2", "exp_range"] and scale_fn is None:
-            raise ValueError("mode is invalid and scale_fn is None")
+        # self.mode = mode
+        # self.gamma = gamma
 
-        self.mode = mode
-        self.gamma = gamma
+        # if scale_fn is None:
+        #     self._scale_fn_custom = None
+        #     if self.mode == "triangular":
+        #         self._scale_fn_ref = weakref.WeakMethod(self._triangular_scale_fn)
+        #         self.scale_mode = "cycle"
+        #     elif self.mode == "triangular2":
+        #         self._scale_fn_ref = weakref.WeakMethod(self._triangular2_scale_fn)
+        #         self.scale_mode = "cycle"
+        #     elif self.mode == "exp_range":
+        #         self._scale_fn_ref = weakref.WeakMethod(self._exp_range_scale_fn)
+        #         self.scale_mode = "iterations"
+        # else:
+        #     self._scale_fn_custom = scale_fn
+        #     self._scale_fn_ref = None
+        #     self.scale_mode = scale_mode
 
-        if scale_fn is None:
-            self._scale_fn_custom = None
-            if self.mode == "triangular":
-                self._scale_fn_ref = weakref.WeakMethod(self._triangular_scale_fn)
-                self.scale_mode = "cycle"
-            elif self.mode == "triangular2":
-                self._scale_fn_ref = weakref.WeakMethod(self._triangular2_scale_fn)
-                self.scale_mode = "cycle"
-            elif self.mode == "exp_range":
-                self._scale_fn_ref = weakref.WeakMethod(self._exp_range_scale_fn)
-                self.scale_mode = "iterations"
-        else:
-            self._scale_fn_custom = scale_fn
-            self._scale_fn_ref = None
-            self.scale_mode = scale_mode
+        # self.cycle_momentum = cycle_momentum
+        # if cycle_momentum:
+        #     if "momentum" not in optimizer.defaults:
+        #         raise ValueError(
+        #             "optimizer must support momentum with `cycle_momentum` option enabled"
+        #         )
 
-        self.cycle_momentum = cycle_momentum
-        if cycle_momentum:
-            if "momentum" not in optimizer.defaults:
-                raise ValueError(
-                    "optimizer must support momentum with `cycle_momentum` option enabled"
-                )
+        #     base_momentums = self._format_param(
+        #         "base_momentum", optimizer, base_momentum
+        #     )
+        #     if last_epoch == -1:
+        #         for momentum, group in zip(base_momentums, optimizer.param_groups):
+        #             group["momentum"] = momentum
+        #     self.base_momentums = [
+        #         group["momentum"] for group in optimizer.param_groups
+        #     ]
+        #     self.max_momentums = self._format_param(
+        #         "max_momentum", optimizer, max_momentum
+        #     )
+        # self.base_lrs = base_lrs
 
-            base_momentums = self._format_param(
-                "base_momentum", optimizer, base_momentum
-            )
-            if last_epoch == -1:
-                for momentum, group in zip(base_momentums, optimizer.param_groups):
-                    group["momentum"] = momentum
-            self.base_momentums = [
-                group["momentum"] for group in optimizer.param_groups
-            ]
-            self.max_momentums = self._format_param(
-                "max_momentum", optimizer, max_momentum
-            )
-
-        self.base_lrs = base_lrs
         super(CustomLRScheduler, self).__init__(optimizer, last_epoch)
 
-    def _format_param(self, name, optimizer, param):
-        """Return correctly formatted lr/momentum for each param group."""
-        if isinstance(param, (list, tuple)):
-            if len(param) != len(optimizer.param_groups):
-                raise ValueError(
-                    "expected {} values for {}, got {}".format(
-                        len(optimizer.param_groups), name, len(param)
-                    )
-                )
-            return param
-        else:
-            return [param] * len(optimizer.param_groups)
+    # def _format_param(self, name, optimizer, param):
+    #     """Return correctly formatted lr/momentum for each param group."""
+    #     if isinstance(param, (list, tuple)):
+    #         if len(param) != len(optimizer.param_groups):
+    #             raise ValueError(
+    #                 "expected {} values for {}, got {}".format(
+    #                     len(optimizer.param_groups), name, len(param)
+    #                 )
+    #             )
+    #         return param
+    #     else:
+    #         return [param] * len(optimizer.param_groups)
 
-    def scale_fn(self, x):
-        """Return scale function"""
-        if self._scale_fn_custom is not None:
-            return self._scale_fn_custom(x)
+    # def scale_fn(self, x):
+    #     """Return scale function"""
+    #     if self._scale_fn_custom is not None:
+    #         return self._scale_fn_custom(x)
 
-        else:
-            return self._scale_fn_ref()(x)
+    #     else:
+    #         return self._scale_fn_ref()(x)
 
-    def _triangular_scale_fn(self, x):
-        """Return triangle scale function"""
-        return 1.0
+    # def _triangular_scale_fn(self, x):
+    #     """Return triangle scale function"""
+    #     return 1.0
 
-    def _triangular2_scale_fn(self, x):
-        """Return triangle scale function"""
-        return 1 / (2.0 ** (x - 1))
+    # def _triangular2_scale_fn(self, x):
+    #     """Return triangle scale function"""
+    #     return 1 / (2.0 ** (x - 1))
 
-    def _exp_range_scale_fn(self, x):
-        """Return exponential scale function"""
-        return self.gamma ** (x)
+    # def _exp_range_scale_fn(self, x):
+    #     """Return exponential scale function"""
+    #     return self.gamma ** (x)
 
     def get_lr(self) -> List[float]:
         """

@@ -16,7 +16,7 @@ class CONFIG:
 
     batch_size = 32
     num_epochs = 10
-    initial_learning_rate = 0.003
+    initial_learning_rate = 0.0018
     initial_weight_decay = 0
 
     lrs_kwargs = {
@@ -28,13 +28,13 @@ class CONFIG:
         "gamma": 0.95,
         # "milestones": [3000, 3600, 4000, 4800, 5400, 6000],
         "T_0": 32,
-        "eta_min": 0.00035,
+        "eta_min": 0.00015,
         "T_mult": 32,
-        "base_lr": 0.001,
-        "max_lr": 0.1,
-        "milestones": [(2**x) * 300 for x in range(30)],
-        "mode": "triangular2",
-        "step_size_up": 1000,
+        # "base_lr": 0.001,
+        # "max_lr": 0.1,
+        # "milestones": [(2**x) * 300 for x in range(30)],
+        # "mode": "triangular2",
+        # "step_size_up": 1000,
     }  # gamma=0.9, milestones=[30,80]
 
     optimizer_factory: Callable[
