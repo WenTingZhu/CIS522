@@ -3,8 +3,6 @@ from torch.optim.lr_scheduler import _LRScheduler
 import torch
 import math
 
-import math
-
 
 class CustomLRScheduler(_LRScheduler):
     """
