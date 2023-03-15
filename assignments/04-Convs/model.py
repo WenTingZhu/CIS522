@@ -22,11 +22,8 @@ class Model(torch.nn.Module):
         self.conv1 = nn.LazyConv2d(num_channels, kernel_size=3, padding=1,
                                    stride=1)
         self.conv2 = nn.LazyConv2d(num_channels, kernel_size=3, padding=1)
-        # if use_1x1conv:
-        #     self.conv3 = nn.LazyConv2d(num_channels, kernel_size=1,
-        #                                stride=strides)
-        # else:
-        #     self.conv3 = None
+        self.conv3 = nn.LazyConv2d(num_channels, kernel_size=1,
+                                       stride=1)
         self.bn1 = nn.LazyBatchNorm2d()
         self.bn2 = nn.LazyBatchNorm2d()
 
