@@ -30,10 +30,12 @@ class Model(torch.nn.Module):
         self.pool2 = nn.MaxPool2d(kernel_size=2, stride=2)
 
         self.fc1 = nn.Linear(self.nchan * 8 * 8, num_classes)
+        # Dropout
+        # Batchnorm
         # self.fc2 = nn.Linear(256, 100)
         # self.fc3 = nn.Linear(100, num_classes)
-        nn.init.xavier_uniform_(self.conv2.weight)
-        nn.init.xavier_uniform_(self.fc1.weight)
+        nn.init.xavier_normal_(self.conv2.weight)
+        nn.init.xavier_normal_(self.fc1.weight)
         # nn.init.xavier_uniform_(self.fc2.weight)
         # nn.init.xavier_uniform_(self.fc3.weight)
 

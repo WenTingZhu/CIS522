@@ -13,7 +13,7 @@ from torchvision.transforms import (
 
 
 class CONFIG:
-    batch_size = 400
+    batch_size = 200
     num_epochs = 8
 
     optimizer_factory: Callable[
