@@ -19,23 +19,34 @@ class Model(torch.nn.Module):
         """
         super(Model, self).__init__()
 
+        self.conv1 = nn.LazyConv2d(num_channels, kernel_size=3, padding=1,
+                                   stride=1)
+        self.conv2 = nn.LazyConv2d(num_channels, kernel_size=3, padding=1)
+        # if use_1x1conv:
+        #     self.conv3 = nn.LazyConv2d(num_channels, kernel_size=1,
+        #                                stride=strides)
+        # else:
+        #     self.conv3 = None
+        self.bn1 = nn.LazyBatchNorm2d()
+        self.bn2 = nn.LazyBatchNorm2d()
+
         # self.conv1 = nn.Conv2d(num_channels, 8, kernel_size=3, stride=1, padding=1)
         # self.pool1 = nn.MaxPool2d(kernel_size=2, stride=2)
-        self.ker = 5
-        self.pad = (self.ker - 1) // 2
-        self.nchan = 16
-        self.conv2 = nn.Conv2d(
-            num_channels, self.nchan, kernel_size=self.ker, stride=2, padding=self.pad
-        )
-        self.pool2 = nn.MaxPool2d(kernel_size=2, stride=2)
+        # self.ker = 5
+        # self.pad = (self.ker - 1) // 2
+        # self.nchan = 16
+        # self.conv2 = nn.Conv2d(
+        #     num_channels, self.nchan, kernel_size=self.ker, stride=2, padding=self.pad
+        # )
+        # self.pool2 = nn.MaxPool2d(kernel_size=2, stride=2)
 
-        self.fc1 = nn.Linear(self.nchan * 8 * 8, num_classes)
+        # self.fc1 = nn.Linear(self.nchan * 8 * 8, num_classes)
         # Dropout
         # Batchnorm
         # self.fc2 = nn.Linear(256, 100)
         # self.fc3 = nn.Linear(100, num_classes)
-        nn.init.xavier_normal_(self.conv2.weight)
-        nn.init.xavier_normal_(self.fc1.weight)
+        nn.init.xavier_uniform_(self.conv2.weight)
+        nn.init.xavier_uniform_(self.fc1.weight)
         # nn.init.xavier_uniform_(self.fc2.weight)
         # nn.init.xavier_uniform_(self.fc3.weight)
 
@@ -52,13 +63,20 @@ class Model(torch.nn.Module):
         # x = F.relu(x)
         # x = self.pool1(x)
 
-        x = self.conv2(x)
-        x = F.relu(x)
-        x = self.pool2(x)
+        # x = self.conv2(x)
+        # x = F.relu(x)
+        # x = self.pool2(x)
 
-        x = x.view(-1, self.nchan * 8 * 8)
-        # x = F.relu(self.fc1(x))
-        # x = F.relu(self.fc2(x))
-        x = self.fc1(x)
+        # x = x.view(-1, self.nchan * 8 * 8)
+        # # x = F.relu(self.fc1(x))
+        # # x = F.relu(self.fc2(x))
+        # x = self.fc1(x)
 
-        return x
+        Y = F.relu(self.bn1(self.conv1(X)))
+        Y = self.bn2(self.conv2(Y))
+        if self.conv3:
+            X = self.conv3(X)
+        Y += X
+        return F.relu(Y)
+
+        # return x
