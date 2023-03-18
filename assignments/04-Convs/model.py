@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 
 # import torch.nn.functional as F
-# torch.manual_seed(12321)
+torch.manual_seed(3407)
 
 
 class Model(torch.nn.Module):
@@ -40,7 +40,7 @@ class Model(torch.nn.Module):
         # self.fc2 = nn.Linear(256, 100)
         # self.fc3 = nn.Linear(100, num_classes)
         # nn.init.xavier_uniform_(self.conv2.weight)
-        nn.init.xavier_uniform_(self.fc1.weight)
+        # nn.init.xavier_uniform_(self.fc1.weight)
         # nn.init.xavier_uniform_(self.fc2.weight)
         # nn.init.xavier_uniform_(self.fc3.weight)
         # self.convdepth = nn.Conv2d(num_channels,self.nchan,kernel_size = 1)
