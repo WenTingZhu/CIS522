@@ -37,7 +37,9 @@ class GhostBatchNorm(nn.BatchNorm2d):
     def forward(self, input):
         n, c, h, w = input.shape
         if self.training or not self.track_running_stats:
-            assert n % self.num_splits == 0, f"Batch size ({n}) must be divisible by num_splits ({self.num_splits}) of GhostBatchNorm"
+            assert (
+                n % self.num_splits == 0
+            ), f"Batch size ({n}) must be divisible by num_splits ({self.num_splits}) of GhostBatchNorm"
             return F.batch_norm(
                 input.view(-1, c * self.num_splits, h, w),
                 self.running_mean,
@@ -107,7 +109,9 @@ class Model(nn.Module):
 
         c = 10000
 
-        conv1 = nn.Conv2d(num_channels, c, kernel_size=(3, 3), padding=(1, 1), bias=False)
+        conv1 = nn.Conv2d(
+            num_channels, c, kernel_size=(3, 3), padding=(1, 1), bias=False
+        )
         # conv1.weight.data = []
         # conv1.weight.requires_grad = False
 
