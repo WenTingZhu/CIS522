@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 
 # import torch.nn.functional as F
-torch.manual_seed(12321)
+torch.manual_seed(42)
 
 
 class Model(torch.nn.Module):
