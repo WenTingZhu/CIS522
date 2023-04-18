@@ -21,8 +21,8 @@ class Agent:
         self,
         action_space: gym.spaces.Discrete,
         observation_space: gym.spaces.Box,
-        lr: float = 0.0008,
-        gamma: float = 0.999,
+        lr: float = 0.001,
+        gamma: float = 0.99,
         epsilon: float = 1.0,
         tau: float = 1e-2,
     ):
