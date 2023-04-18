@@ -204,8 +204,10 @@ class QNet(nn.Module):
         super().__init__()
         self.model = nn.Sequential(
             nn.Linear(n_observ, 64),
+            nn.Dropout(0.1),
             nn.PReLU(),
             nn.Linear(64, 64),
+            nn.Dropout(0.1),
             nn.PReLU(),
             nn.Linear(64, n_action),
         )
