@@ -81,7 +81,8 @@ class Agent:
         truncated: bool,
     ) -> None:
         """
-         Take an observation, a reward, a boolean indicating whether the episode has terminated, and a boolean indicating whether the episode was truncated
+         Take an observation, a reward, a boolean indicating whether the episode has
+         terminated, and a boolean indicating whether the episode was truncated
 
         Args:
             observation (gym.spaces.Box): _description_
@@ -150,7 +151,7 @@ class ReplayBuffer:
         self.n_samples = 0
 
         self.state = torch.zeros(buffer_size, state_dim, dtype=torch.float32)
-        self.action = torch.zeros(buffer_size, act_dim, dtype=torch.int64)
+        self.action = torch.zeros(buffer_size, 1, dtype=torch.int64)
         self.reward = torch.zeros(buffer_size, 1, dtype=torch.float32)
         self.next_state = torch.zeros(buffer_size, state_dim, dtype=torch.float32)
         self.terminated = torch.zeros(buffer_size, 1, dtype=torch.float32)
