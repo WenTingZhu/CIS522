@@ -22,7 +22,7 @@ class Agent:
         action_space: gym.spaces.Discrete,
         observation_space: gym.spaces.Box,
         lr: float = 0.0018,
-        gamma: float = 0.995,
+        gamma: float = 0.95,
         epsilon: float = 1.0,
         tau: float = 1e-2,
     ):
