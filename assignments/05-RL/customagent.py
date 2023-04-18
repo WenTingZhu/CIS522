@@ -6,8 +6,8 @@ from typing import NamedTuple, List
 from torch.optim.lr_scheduler import _LRScheduler
 import math
 
-torch.manual_seed(12321)
-np.random.seed(12321)
+torch.manual_seed(42)
+np.random.seed(42)
 
 
 class Agent:
