@@ -6,8 +6,8 @@ from typing import NamedTuple, List
 from torch.optim.lr_scheduler import _LRScheduler
 import math
 
-torch.manual_seed(42)
-np.random.seed(42)
+torch.manual_seed(12321)
+np.random.seed(12321)
 
 
 class Agent:
@@ -21,7 +21,7 @@ class Agent:
         self,
         action_space: gym.spaces.Discrete,
         observation_space: gym.spaces.Box,
-        lr: float = 0.015,
+        lr: float = 0.0015,
         gamma: float = 0.99,
         epsilon: float = 1.0,
         tau: float = 1e-2,
@@ -39,9 +39,7 @@ class Agent:
         self.n_observ = self.observation_space.shape[0]
         self.q_net = QNet(self.n_observ, self.n_action)
         self.target_net = QNet(self.n_observ, self.n_action)
-        self.optimizer = torch.optim.Adam(
-            self.q_net.parameters(), lr=self.lr, betas=[0.99, 0.999], eps=1e-04
-        )
+        self.optimizer = torch.optim.Adam(self.q_net.parameters(), lr=self.lr)
         self.lr_scheduler = CustomLRScheduler(self.optimizer)
         self.loss_fn = torch.nn.MSELoss()
         self.replay_buffer = ReplayBuffer(self.n_observ, self.n_action, 1000000)
@@ -206,10 +204,8 @@ class QNet(nn.Module):
         super().__init__()
         self.model = nn.Sequential(
             nn.Linear(n_observ, 64),
-            # nn.Dropout(p=0.6),
             nn.ReLU(),
             nn.Linear(64, 64),
-            # nn.Dropout(p=0.6),
             nn.ReLU(),
             nn.Linear(64, n_action),
         )
