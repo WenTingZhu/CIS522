@@ -21,8 +21,8 @@ class Agent:
         self,
         action_space: gym.spaces.Discrete,
         observation_space: gym.spaces.Box,
-        lr: float = 0.001,
-        gamma: float = 0.99,
+        lr: float = 0.0018,
+        gamma: float = 0.995,
         epsilon: float = 1.0,
         tau: float = 1e-2,
     ):
@@ -204,10 +204,8 @@ class QNet(nn.Module):
         super().__init__()
         self.model = nn.Sequential(
             nn.Linear(n_observ, 64),
-            # nn.Dropout(0.1),
             nn.ReLU(),
             nn.Linear(64, 64),
-            # nn.Dropout(0.1),
             nn.ReLU(),
             nn.Linear(64, n_action),
         )
