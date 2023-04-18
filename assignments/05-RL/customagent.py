@@ -204,9 +204,9 @@ class QNet(nn.Module):
         super().__init__()
         self.model = nn.Sequential(
             nn.Linear(n_observ, 64),
-            nn.ReLU(),
+            nn.PReLU(),
             nn.Linear(64, 64),
-            nn.ReLU(),
+            nn.PReLU(),
             nn.Linear(64, n_action),
         )
         # nn.init.xavier_uniform_(self.model[0].weight)
