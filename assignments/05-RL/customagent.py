@@ -209,9 +209,9 @@ class QNet(nn.Module):
             nn.ReLU(),
             nn.Linear(64, n_action),
         )
-        # nn.init.xavier_uniform_(self.model[0].weight)
-        # nn.init.xavier_uniform_(self.model[2].weight)
-        # nn.init.xavier_uniform_(self.model[4].weight)
+        nn.init.xavier_uniform_(self.model[0].weight)
+        nn.init.xavier_uniform_(self.model[2].weight)
+        nn.init.xavier_uniform_(self.model[4].weight)
 
     def forward(self, x):
         return self.model(x)
