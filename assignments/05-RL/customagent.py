@@ -39,7 +39,9 @@ class Agent:
         self.n_observ = self.observation_space.shape[0]
         self.q_net = QNet(self.n_observ, self.n_action)
         self.target_net = QNet(self.n_observ, self.n_action)
-        self.optimizer = torch.optim.Adam(self.q_net.parameters(), lr=self.lr, betas = [0.99,0.999], eps = 1e-04)
+        self.optimizer = torch.optim.Adam(
+            self.q_net.parameters(), lr=self.lr, betas=[0.99, 0.999], eps=1e-04
+        )
         self.lr_scheduler = CustomLRScheduler(self.optimizer)
         self.loss_fn = torch.nn.MSELoss()
         self.replay_buffer = ReplayBuffer(self.n_observ, self.n_action, 1000000)
@@ -203,11 +205,13 @@ class QNet(nn.Module):
     def __init__(self, n_observ, n_action):
         super().__init__()
         self.model = nn.Sequential(
-            nn.Linear(n_observ, 64),
+            nn.Linear(n_observ, 128),
+            # nn.Dropout(p=0.6),
             nn.ReLU(),
-            nn.Linear(64, 64),
+            nn.Linear(128, 128),
+            # nn.Dropout(p=0.6),
             nn.ReLU(),
-            nn.Linear(64, n_action),
+            nn.Linear(128, n_action),
         )
         # nn.init.xavier_uniform_(self.model[0].weight)
         # nn.init.xavier_uniform_(self.model[2].weight)
