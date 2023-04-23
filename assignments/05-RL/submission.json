@@ -11,6 +11,7 @@
         }
     ],
     "sources": [
-        "https://shiva-verma.medium.com/solving-lunar-lander-openaigym-reinforcement-learning-785675066197"
+        "https://shiva-verma.medium.com/solving-lunar-lander-openaigym-reinforcement-learning-785675066197",
+        "https://openai.com/research/openai-baselines-ppo"
     ]
 }
